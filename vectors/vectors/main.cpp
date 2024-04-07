@@ -1,10 +1,10 @@
 ﻿#include <iostream>
+#include <limits>
 #include "Vector3D.h"
 
 using namespace std;
 
-void DisplayMenu()
-{
+void DisplayMenu() {
     cout << "Menu:" << endl
         << "1. Calculate the length of a vector" << endl
         << "2. Normalize a vector" << endl
@@ -18,115 +18,186 @@ void DisplayMenu()
         << "10. Exit" << endl;
 }
 
-void CalculateVectorLength(CVector3D& vec, double& x, double& y, double& z)
+bool InputErrorHandler()
 {
-    cout << "Enter the coordinates of the vector (x, y, z): ";
-    cin >> x >> y >> z;
-    vec = CVector3D(x, y, z);
-    cout << "Length of the vector: " << vec.GetLength() << endl;
-}
-
-void NormalizeVector(CVector3D& vec, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the vector (x, y, z): ";
-    cin >> x >> y >> z;
-    vec = CVector3D(x, y, z);
-    vec.Normalize();
-    cout << "Normalized vector: " << vec << endl;
-}
-
-void CalculateDotProduct(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
-    cin >> x >> y >> z;
-    vec1 = CVector3D(x, y, z);
-    cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
-    cin >> x >> y >> z;
-    vec2 = CVector3D(x, y, z);
-    cout << "Dot product of the vectors: " << DotProduct(vec1, vec2) << endl;
-}
-
-void CalculateCrossProduct(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
-    cin >> x >> y >> z;
-    vec1 = CVector3D(x, y, z);
-    cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
-    cin >> x >> y >> z;
-    vec2 = CVector3D(x, y, z);
-    cout << "Cross product of the vectors: " << CrossProduct(vec1, vec2) << endl;
-}
-
-void CheckVectorsEquality(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
-    cin >> x >> y >> z;
-    vec1 = CVector3D(x, y, z);
-    cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
-    cin >> x >> y >> z;
-    vec2 = CVector3D(x, y, z);
-    if (vec1 == vec2) 
+    if (cin.fail()) 
     {
-        cout << "The vectors are equal." << endl;
+        cout << "Invalid input. Please enter numeric values." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return true;
+
     }
-    else 
+    return false;
+}
+
+void CalculateVectorLength(CVector3D& vec, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the vector (x, y, z): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
     {
-        cout << "The vectors are not equal." << endl;
+        vec = CVector3D(x, y, z);
+        cout << "Length of the vector: " << vec.GetLength() << endl;
     }
 }
 
-void AddVectors(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
-    cin >> x >> y >> z;
-    vec1 = CVector3D(x, y, z);
-    cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
-    cin >> x >> y >> z;
-    vec2 = CVector3D(x, y, z);
-    cout << "Sum of the vectors: " << (vec1 + vec2) << endl;
-}
-
-void SubtractVectors(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z)
-{
-    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
-    cin >> x >> y >> z;
-    vec1 = CVector3D(x, y, z);
-    cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
-    cin >> x >> y >> z;
-    vec2 = CVector3D(x, y, z);
-    cout << "Difference of the vectors: " << (vec1 - vec2) << endl;
-}
-
-void MultiplyVectorByScalar(CVector3D& vec, double& x, double& y, double& z, double scalar)
+void NormalizeVector(CVector3D& vec, double& x, double& y, double& z) 
 {
     cout << "Enter the coordinates of the vector (x, y, z): ";
     cin >> x >> y >> z;
-    vec = CVector3D(x, y, z);
-    cout << "Enter the scalar: ";
-    cin >> scalar;
-    cout << "Product of the vector and the scalar: " << (vec * scalar) << endl;
+    if (InputErrorHandler())
+    {
+        vec = CVector3D(x, y, z);
+        vec.Normalize();
+        cout << "Normalized vector: " << vec << endl;
+    }
+}
+
+void CalculateDotProduct(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {
+        vec1 = CVector3D(x, y, z);
+        cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
+        cin >> x >> y >> z;
+        if (InputErrorHandler())
+        {
+            vec2 = CVector3D(x, y, z);
+            cout << "Dot product of the vectors: " << DotProduct(vec1, vec2) << endl;
+        }
+    }
+}
+
+void CalculateCrossProduct(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {
+        vec1 = CVector3D(x, y, z);
+        cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
+        cin >> x >> y >> z;
+        if (InputErrorHandler())
+        {
+            vec2 = CVector3D(x, y, z);
+            cout << "Cross product of the vectors: " << CrossProduct(vec1, vec2) << endl;
+        }
+    }
+    
+}
+
+void CheckVectorsEquality(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {      
+        vec1 = CVector3D(x, y, z);
+        cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
+        if (InputErrorHandler())
+        {
+            vec2 = CVector3D(x, y, z);
+            if (vec1 == vec2)
+            {
+                cout << "The vectors are equal." << endl;
+            }
+            else
+            {
+                cout << "The vectors are not equal." << endl;
+            }
+        }
+
+    }
+}
+
+void AddVectors(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {
+        vec1 = CVector3D(x, y, z);
+        cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
+        cin >> x >> y >> z;
+        if (InputErrorHandler()) 
+        {
+            vec2 = CVector3D(x, y, z);
+            cout << "Sum of the vectors: " << (vec1 + vec2) << endl;
+        }
+    }
+}
+
+void SubtractVectors(CVector3D& vec1, CVector3D& vec2, double& x, double& y, double& z) 
+{
+    cout << "Enter the coordinates of the first vector (x1, y1, z1): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {
+        vec1 = CVector3D(x, y, z);
+        cout << "Enter the coordinates of the second vector (x2, y2, z2): ";
+        cin >> x >> y >> z;
+        if (InputErrorHandler())
+        {
+            vec2 = CVector3D(x, y, z);
+            cout << "Difference of the vectors: " << (vec1 - vec2) << endl;
+        }
+    }
+}
+
+void MultiplyVectorByScalar(CVector3D& vec, double& x, double& y, double& z, double scalar) 
+{
+    cout << "Enter the coordinates of the vector (x, y, z): ";
+    cin >> x >> y >> z;
+    if (InputErrorHandler())
+    {
+        vec = CVector3D(x, y, z);
+        cout << "Enter the scalar: ";
+        cin >> scalar;
+        if (InputErrorHandler()) 
+        {
+            cout << "Product of the vector and the scalar: " << (vec * scalar) << endl;
+        }
+    }
 }
 
 void DivideVectorByScalar(CVector3D& vec, double& x, double& y, double& z, double scalar)
 {
     cout << "Enter the coordinates of the vector (x, y, z): ";
     cin >> x >> y >> z;
-    vec = CVector3D(x, y, z);
-    cout << "Enter the scalar: ";
-    cin >> scalar;
-    cout << "Division of the vector by the scalar: " << (vec / scalar) << endl;
+    if (InputErrorHandler())
+    {
+        vec = CVector3D(x, y, z);
+        cout << "Enter the scalar: ";
+        cin >> scalar;
+        if (InputErrorHandler()) 
+        {
+            cout << "Division of the vector by the scalar: " << (vec / scalar) << endl;
+        }
+    }
 }
 
-int main()
+int main() 
 {
-    int choice;
+    int choice = 0;
     CVector3D vec1, vec2;
     double x, y, z, scalar;
-
-    do
+    scalar = 0;
+    while (choice != 10)
     {
+        
         cout << "> ";
         cin >> choice;
+
+        if (cin.fail())
+        {
+            cout << "Invalid command. Type 'help' or '0' for the list of commands." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
 
         switch (choice) 
         {
@@ -164,9 +235,10 @@ int main()
             cout << "Exiting..." << endl;
             break;
         default:
-            cout << "Invalid command. Type '0' for the list of commands." << endl;
+            cout << "Invalid command. Type 'help' or '0' for the list of commands." << endl;
+            break;
         }
-    } while (choice != 10);
+    }
 
     return 0;
 }
