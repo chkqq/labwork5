@@ -27,7 +27,7 @@ public:
     CVector3D& operator-=(const CVector3D& other);
 
     CVector3D operator*(double scalar) const;
-    friend CVector3D operator*(double scalar, const CVector3D& vector);
+    friend CVector3D operator*(double scalar, const CVector3D& vector); // const scalar const функция
 
     CVector3D operator/(double scalar) const;
 
